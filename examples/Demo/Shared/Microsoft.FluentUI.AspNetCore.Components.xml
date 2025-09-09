@@ -10308,6 +10308,11 @@
             Gets the default tooltip options.
             </summary>
         </member>
+        <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.AriaLabel">
+            <summary>
+            Gets or sets the text used on aria-label attribute.
+            </summary>
+        </member>
         <member name="P:Microsoft.FluentUI.AspNetCore.Components.FluentTooltip.HideTooltipOnCursorLeave">
             <summary>
             Gets or sets the value indicating whether the library should close the tooltip if the cursor leaves the anchor and the tooltip.

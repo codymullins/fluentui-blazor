@@ -91,7 +91,7 @@ public partial class FluentDialogProvider : IAsyncDisposable
             dialogReference.Instance = dialog;
 
             _internalDialogContext.References.Add(dialogReference);
-            InvokeAsync(StateHasChanged);
+            await InvokeAsync(StateHasChanged);
 
             return dialogReference;
         });
@@ -99,8 +99,8 @@ public partial class FluentDialogProvider : IAsyncDisposable
 
     private void UpdateDialog(string? dialogId, DialogParameters parameters)
     {
-        IDialogReference reference = _internalDialogContext.References.SingleOrDefault(x => x.Id == dialogId)!;
-        DialogInstance? dialogInstance = reference.Instance;
+        var reference = _internalDialogContext.References.SingleOrDefault(x => x.Id == dialogId)!;
+        var dialogInstance = reference.Instance;
 
         if (dialogInstance is not null)
         {
@@ -115,8 +115,8 @@ public partial class FluentDialogProvider : IAsyncDisposable
     {
         return await Task.Run(() =>
         {
-            IDialogReference? reference = _internalDialogContext.References.SingleOrDefault(x => x.Id == dialogId)!;
-            DialogInstance? dialogInstance = reference?.Instance;
+            var reference = _internalDialogContext.References.SingleOrDefault(x => x.Id == dialogId)!;
+            var dialogInstance = reference?.Instance;
 
             if (dialogInstance is not null)
             {
@@ -157,7 +157,7 @@ public partial class FluentDialogProvider : IAsyncDisposable
 
     internal void DismissInstance(string id, DialogResult result)
     {
-        IDialogReference? reference = GetDialogReference(id);
+        var reference = GetDialogReference(id);
         if (reference is not null)
         {
             DismissInstance(reference, result);
@@ -211,7 +211,7 @@ public partial class FluentDialogProvider : IAsyncDisposable
     {
         if (args is not null && args.Reason is not null && args.Reason == "dismiss" && !string.IsNullOrWhiteSpace(args.Id))
         {
-            IDialogReference? dialog = GetDialogReference(args.Id);
+            var dialog = GetDialogReference(args.Id);
             if (dialog == null)
             {
                 return;
