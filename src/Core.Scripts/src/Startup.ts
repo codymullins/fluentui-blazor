@@ -47,10 +47,16 @@ export namespace Microsoft.FluentUI.Blazor.Startup {
     // Initialize Fluent UI theme
     blazor.theme = ThemeFile.FluentUI.Blazor.Utilities.Theme;
     ThemeFile.FluentUI.Blazor.Utilities.Theme.addMediaQueriesListener();
-    if (blazor.theme.isSystemDark()) {
+
+    // If the theme is already set by the dev, use it, otherwise try to check browser-prefers scheme
+    const bodyTheme = document.body.getAttribute('data-theme');
+    if (bodyTheme === 'dark') {
       blazor.theme.setDarkTheme();
-    }
-    else {
+    } else if (bodyTheme === 'light') {
+      blazor.theme.setLightTheme();
+    } else if (blazor.theme.isSystemDark()) {
+      blazor.theme.setDarkTheme();
+    } else {
       blazor.theme.setLightTheme();
     }
 
